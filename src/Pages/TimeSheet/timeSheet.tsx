@@ -62,7 +62,9 @@ const TimesheetsPage: React.FC = () => {
   // Initialize the calendar app
   const calendarApp = useCalendarApp({
     views: [createViewWeek(), createViewMonthGrid()],
-    events: [],
+    events: [
+      
+    ],
   });
 
   // Fetch timesheets from the API
@@ -187,14 +189,19 @@ const TimesheetsPage: React.FC = () => {
       // Clear existing events
       const existingEvents = calendarApp.events.getAll();
       existingEvents.forEach((event) => calendarApp.events.remove(event.id));
-
+  
       // Add new events
       eventData.forEach((event) => {
+        console.log('Adding event:', event); // Debugging log
         calendarApp.events.add(event);
       });
     }
   }, [eventData, calendarApp]);
-
+  
+  // Debugging: Log eventData whenever it changes
+  useEffect(() => {
+    console.log('eventData:', eventData);
+  }, [eventData]);
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
